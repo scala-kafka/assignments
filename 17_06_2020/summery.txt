@@ -1,0 +1,363 @@
+functions/methods
+	parameters
+	named parameters
+	default parameters	
+this
+	this reference
+	this construtor call
+Setter and Getters	
+Class and object
+Constructor
+	Primary
+	Auxiliary
+Constructor Overloading
+Method Overloading
+HAS-A relationship
+	Composition	 >>> Constructor	
+	Aggregation	>>> Setter
+	
+Inheritance
+	class to class (extends)
+	class to object (extends) 
+
+	private properties will not be inherited
+	constructors will not be inherited
+	static properties will not be inherited
+	
+	due to static context behaviour of object 
+		object to object (not possible)
+		object to class  (not possible)
+	
+overriding:
+	need two classes and those classes must be in inheritance relationship
+	no inheritance >>> no overriding
+
+Binding:
+	connecting/wiring method call with method definition
+	this will be achieved by replacing method call with address of the method
+	
+	Static Binding / Early Binding : it is happening at compilation time 
+	Dynamic Binding / Late Binding : it is happening at run time 	
+	
+Polymorphism:
+	Rules:
+		1. classes must be in inheritance
+		2. methods must be overriding
+		3. reference must be super type and object must be type 
+				super class reference can refer to Sub class object
+		
+	Demo:
+		Payment
+			payMobileBill()
+
+		CrediCard extends Payment
+			payMobileBill()
+				logic to process CrediCard
+				
+		DebitCard extends Payment
+			payMobileBill()
+				logic to process DebitCard
+				
+		Cheque	  extends Payment
+			payMobileBill()
+				logic to process Cheque
+
+		Paytm	  extends Payment
+			payMobileBill()
+				logic to process Paytm
+		
+Abstract method:
+	a method with a declaration but not with body
+	it should not be private
+	
+Abstract class:
+	if a class is having atleast abstrct method... then we should class it self as abstrct
+	for abstrct classes, we can create reference but not object
+	abstrct classes must be inherited
+	once concrete class inherit abstrct class then concrete class has to implement all abstrct methods
+	
+
+Trait:
+
+	trait MyTrait {
+
+	  def m1()
+
+	  def m2(): Unit ={
+		println("I am in MyTrait-M2")
+	  }
+
+	  def m3(): Unit ={
+		println("I am in MyTrait-M3")
+	  }
+
+	}
+		
+	class MyClass extends MyTrait {
+
+	  override def m1(): Unit ={        // overriding is must
+		//super.m1()
+		println("I am in MyClass-M1")
+	  }
+
+	  override def m2(): Unit = {     // overriding is optional... (we can override based on requirement)
+		super.m2()
+		println("I am in MyClass-M2")
+	  }
+
+	}
+
+	object TDemo {
+
+	  def main(args: Array[String]): Unit = {
+
+		var reference:MyTrait = new MyClass;
+
+		reference.m1()
+		reference.m2()
+
+		reference.m3()
+
+	  }
+	}
+	====================
+	
+	trait MyTrait {
+	  def m1()
+	}
+
+	trait MyTrait2{
+	  def  m2()
+	}
+
+	class MyClass extends MyTrait with MyTrait2 {
+
+	  override def m1(): Unit ={        // overriding is must
+		//super.m1()
+		println("I am in MyClass-M1")
+	  }
+
+	  override def m2(): Unit = {
+		println("I am in MyClass-M2")
+	  }
+
+	}
+	===============
+trait MyTrait {
+  def m1()
+  def m3()
+}
+
+trait MyTrait2{
+  def m2()
+  def m3()
+}
+
+trait MyTrait3{
+  def m4()
+}
+
+class MyClass extends MyTrait with MyTrait2 with MyTrait3 {
+
+  override def m1(): Unit ={        // overriding is must
+    //super.m1()
+    println("I am in MyClass-M1")
+  }
+
+  override def m2(): Unit = {
+    println("I am in MyClass-M2")
+  }
+
+  override def m3(): Unit = {
+    println("I am in MyClass-M3")
+  }
+
+  override def m4(): Unit = {
+
+  }
+}	
+
+object TDemo {
+
+  def main(args: Array[String]): Unit = {
+
+    var reference1:MyTrait = new MyClass;
+    reference1.m1()
+    reference1.m3()
+
+    var reference2:MyTrait2 = new MyClass
+    reference2.m2()
+    reference2.m3()
+
+  }
+}
+==================		
+		
+trait MyTrait {
+    def m1()
+}
+  
+trait MyTrait2 extends  MyTrait {
+    def m2()
+}
+		
+class MyClass extends  MyTrait2 {
+
+  override def m1(): Unit = {
+
+  }
+
+  override def m2(): Unit = {
+
+  }
+
+}		
+========
+trait MyTrait {
+  def m1()
+}
+
+trait MyTrait2 {
+  def m2()
+}
+
+trait MyTrait3 extends MyTrait with MyTrait2 {
+  
+}
+
+class A{
+  
+}
+
+trait MyTrait4 extends A with MyTrait {
+  
+}
+=====================
+
+Variable number of arguments... Var-Args
+
+	def add(x:Int*): Unit ={
+
+	}
+	
+	add(10, 20)
+    add(34, 45, 12)
+    add(34, 67, 23, 45)
+=========================
+	
+class OverloadingDemo2{
+
+  def add(x:Int*): Unit ={
+    println("Var-args")
+  }
+
+  def add(x:Int, y:Int): Unit ={
+    println("two parameters add")
+  }
+
+}
+
+object Demo2 {
+  def main(args: Array[String]): Unit = {
+
+    var ref = new OverloadingDemo2;
+
+    ref.add(10, 20)
+    ref.add(34, 45, 12)
+    ref.add(34, 67, 23, 45)
+  }
+}	
+===================
+
+class OverloadingDemo2{
+
+  def add(x:Any*): Unit ={
+    println("Var-args")
+  }
+
+}
+
+object Demo2 {
+  def main(args: Array[String]): Unit = {
+
+    var ref = new OverloadingDemo2;
+
+    ref.add()
+    ref.add(10, 20)
+    ref.add("Red", "Blue", "Green")
+    ref.add(345.6)
+  }
+}
+====================
+
+class OverloadingDemo2{
+
+  def add(a:Int, x:Any*): Unit ={		// first parameter must be integer
+    println("Var-args")
+  }
+
+}
+
+object Demo2 {
+  def main(args: Array[String]): Unit = {
+
+    var ref = new OverloadingDemo2;
+
+    ref.add(12)
+    ref.add(10, 20)
+    ref.add(10, 20)
+    ref.add(12, "Red", "Blue", "Green")
+    ref.add(56, 345.6)
+  }
+}
+=========================
+
+Partial order functions
+
+	scala> def getTwoValuesData(x:Int, y:Int) = x+y
+	getTwoValuesData: (x: Int, y: Int)Int
+
+	scala> def getTwoValuesData(x:Int, y:Int) = x+y
+	getTwoValuesData: (x: Int, y: Int)Int
+
+	scala> var sum = getTwoValuesData _
+	sum: (Int, Int) => Int = $$Lambda$1205/309547224@198ad9e0
+
+	scala> var sc = getTwoValuesData _
+	sc: (Int, Int) => Int = $$Lambda$1206/1374842361@6af78b2
+
+	scala> sum(300, 400)
+	res13: Int = 700
+
+	scala> sc(300, 200)
+	res14: Int = 500
+	===========================
+	
+	scala> def factorOf(x:Int, y:Int) = y % x == 0
+	factorOf: (x: Int, y: Int)Boolean
+
+	scala> factorOf(3, 63)
+	res15: Boolean = true
+
+	scala> var f = factorOf _
+	f: (Int, Int) => Boolean = $$Lambda$1207/64045389@5bf552da
+
+	scala> f(5, 65)
+	res16: Boolean = true
+
+	scala> var p = factorOf(5, _:Int)
+	p: Int => Boolean = $$Lambda$1208/1058566332@3993c2be
+
+	scala> p(45)
+	res17: Boolean = true
+
+	scala> p(57)
+	res18: Boolean = false
+
+	scala> p(85)
+	res19: Boolean = true
+====================================================================		
+		
+		
+	
+	
