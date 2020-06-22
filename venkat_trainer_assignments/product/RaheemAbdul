@@ -1,0 +1,56 @@
+package assignments
+
+object ProductDemo {
+
+  def main(args: Array[String]): Unit = {
+
+    //1  Collect and print details of all the products:
+    var productList = ProductDetails.getProductList
+    // productList.foreach(x=>println(x))
+
+    //2  Collect and Print Details of the Product having price greater than or equal to 30000f
+    var products30000List: List[Product] = productList.filter(product => (product.price >= 30000))
+
+
+    //3  Collect the details of the product having price greater than or equal to 30000f    // in list// in Set
+    var products30000Set: Set[Product] = productList.filter(product => (product.price >= 30000)).toSet
+    products30000Set.foreach(product => println(product))
+
+    //4 From List of Products get the List Of id,name separately
+    //4 List [Int]  List[String]
+    //List[(Int,String)]  //List of Tuples
+    //List[Map[Int:String]] // list of  maps(id)
+
+    var productNewList = ProductDetails.getProductList
+
+    println("Map(productId,productName)===>" + productNewList.map(product => product.productId -> product.productName).toMap)
+
+
+    //5 find min/max/sum/average use cumilative like arithmatic
+
+    println("minimum" + productNewList.minBy(_.price))
+
+    println("maximum" + productNewList.maxBy(_.price))
+
+    println("sum =" + productNewList.map(_.price).sum)
+
+    println("Average ==" + productNewList.map(_.price).sum / productNewList.size)
+
+
+    //6  find the count of products have distinct price
+
+    var distinctPriceCount = productNewList.map(product => product.price).distinct
+
+    // 7 Find the product that has Maximum price [Hint: use map]
+
+    println("product that has Maximum price " + productNewList.maxBy(_.price))
+
+    //8   Collect the details of the product having name starting with T as map, id should be key and value should be name of the product
+
+    var startingWithT = productNewList.filter(p => p.productName.startsWith("T")).map(product => product.productId -> product.productName).toMap
+
+    //9 Group  the products by productType
+    println("Group  the products by productType" + productNewList.groupBy(p => p.productType))
+
+  }
+}
