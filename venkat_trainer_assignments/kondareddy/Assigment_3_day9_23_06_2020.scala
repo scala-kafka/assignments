@@ -5,6 +5,17 @@ import scala.util.{Failure, Success}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+/**
+  * Please complete the below assignments by EOD.
+  *
+  * 1. Get Top-5 highest Paid Employees from database employee table
+  * 2. Get All Employees Where Name Contains v or V from database employee table
+  *
+  * 3. Get a max salary and also an Employee whose salary is Max  (if need write two methods. One is to get max salary and another is to get Employee row)
+  * 4. Get a min salary and also an Employee whose salary is Min (if need write two methods. One is to get min salary and another is to get Employee row)
+  * 5. Get an average salary of employees. (Double)
+  * 6. Get all employees whose salary is more than the average salary of employees
+  */
 class EmployeeDAO {
   var driverName: String = "com.mysql.cj.jdbc.Driver"
   var url: String =
